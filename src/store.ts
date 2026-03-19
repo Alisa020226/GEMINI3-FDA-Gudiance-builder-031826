@@ -14,7 +14,7 @@ export type ThemeName =
   | 'radiand-orchid';
 
 export type Language = 'en' | 'zh-TW';
-export type Model = 'gemini-2.5-flash' | 'gemini-3-flash-preview';
+export type Model = 'gemini-2.5-flash' | 'gemini-3-flash-preview' | 'gemini-3.1-pro-preview';
 export type OCREngine = 'python' | 'llm';
 
 interface AppState {
@@ -42,6 +42,14 @@ interface AppState {
   setCustomPrompt: (prompt: string) => void;
   generatedMarkdown: string;
   setGeneratedMarkdown: (md: string) => void;
+  
+  // WOW 11: Compliance Score
+  complianceScore: number | null;
+  setComplianceScore: (score: number | null) => void;
+
+  // WOW 12: Audio Briefing
+  audioBriefingUrl: string | null;
+  setAudioBriefingUrl: (url: string | null) => void;
   
   // Telemetry
   telemetryLogs: string[];
@@ -74,6 +82,12 @@ export const useAppStore = create<AppState>()(
       setCustomPrompt: (customPrompt) => set({ customPrompt }),
       generatedMarkdown: '',
       setGeneratedMarkdown: (generatedMarkdown) => set({ generatedMarkdown }),
+      
+      complianceScore: null,
+      setComplianceScore: (complianceScore) => set({ complianceScore }),
+
+      audioBriefingUrl: null,
+      setAudioBriefingUrl: (audioBriefingUrl) => set({ audioBriefingUrl }),
       
       telemetryLogs: [],
       addTelemetryLog: (log) => set((state) => ({ telemetryLogs: [...state.telemetryLogs, log] })),

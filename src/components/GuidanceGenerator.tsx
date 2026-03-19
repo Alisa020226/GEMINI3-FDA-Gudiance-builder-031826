@@ -110,6 +110,7 @@ ${ingestedText}
             >
               <option value="gemini-3-flash-preview">Gemini 3.1 Flash Preview (Recommended)</option>
               <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+              <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview (Complex)</option>
             </select>
           </div>
 

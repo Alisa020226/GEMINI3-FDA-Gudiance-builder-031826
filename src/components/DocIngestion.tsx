@@ -7,7 +7,10 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 
 // Set worker URL for react-pdf
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url,
+).toString();
 
 export function DocIngestion() {
   const { 
@@ -150,7 +153,7 @@ export function DocIngestion() {
               {language === 'en' ? 'PDF Preview & OCR' : 'PDF 預覽與 OCR'}
             </h3>
             {uploadedFile?.type === 'application/pdf' && (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap justify-end">
                 <select 
                   className="text-sm border border-input rounded-md p-1.5 bg-background"
                   value={ocrEngine}
@@ -159,6 +162,16 @@ export function DocIngestion() {
                   <option value="python">{language === 'en' ? 'Python Packages (PyMuPDF)' : 'Python 套件 (PyMuPDF)'}</option>
                   <option value="llm">{language === 'en' ? 'LLM Vision (Gemini)' : 'LLM 視覺 (Gemini)'}</option>
                 </select>
+                {ocrEngine === 'llm' && (
+                  <select 
+                    className="text-sm border border-input rounded-md p-1.5 bg-background"
+                    defaultValue="gemini-3-flash-preview"
+                  >
+                    <option value="gemini-3-flash-preview">Gemini 3.1 Flash Preview</option>
+                    <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+                    <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview</option>
+                  </select>
+                )}
                 <Button 
                   size="sm" 
                   onClick={processPDF} 
